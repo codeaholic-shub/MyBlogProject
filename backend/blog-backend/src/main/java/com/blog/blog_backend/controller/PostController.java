@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blog.blog_backend.entity.Post;
 import com.blog.blog_backend.service.PostService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/posts")
 // CORS CONFIGURATION: This is critical for React to work
@@ -30,7 +32,7 @@ public class PostController {
     }
     
     @PostMapping
-    public Post createPost(@RequestBody Post post) {
+    public Post createPost(@Valid @RequestBody Post post) {
         return postService.createPost(post);
     }
 }

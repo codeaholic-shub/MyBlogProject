@@ -1,14 +1,9 @@
-package com.blog.blog_backend.entity; // Updated Package
+package com.blog.blog_backend.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
 @Entity
 @Data
@@ -20,8 +15,14 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Title is required")
+    @Size(min = 2, max = 100, message = "Title must be between 2 and 100 characters")
+    @Column(nullable = false, length = 100)
     private String title;
     
-    @Column(length = 5000)
+    @NotBlank(message = "Content is required")
+    @Size(min = 10, max = 5000, message = "Content must be between 10 and 5000 characters")
+    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 }
